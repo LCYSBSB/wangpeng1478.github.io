@@ -27,26 +27,243 @@
     </script>
 </head>
 
-<body onload="App.init()">
+<body>
     <div class="container">
-        <div class="item">
-            <button class="weui-btn weui-btn_primary" type="button" onclick="App.toggle()">toggle</button>
+        <div class="weui-tab">
+            <div class="weui-tab__panel">
+                <div class="page__hd">
+                    <h1 class="page__title">Thor资源分享</h1>
+                    <p class="page__desc">Thor资源分享</p>
+                </div>
+                <button class="weui-btn weui-btn_primary" type="button" onclick="App.toggle()">toggle</button>
+                <div class="weui-search-bar" id="searchBar">
+                    <form id="searchForm" class="weui-search-bar__form">
+                        <div class="weui-search-bar__box">
+                            <i class="weui-icon-search"></i>
+                            <input id="search" type="search" class="weui-search-bar__input" placeholder="请输入关键字" data-search />
+                            <a href="javascript:" class="weui-icon-clear"></a>
+                        </div>
+                        <label class="weui-search-bar__label">
+                            <i class="weui-icon-search"></i>
+                            <span>搜索</span>
+                        </label>
+                    </form>
+                    <a href="javascript:" class="weui-search-bar__cancel-btn">取消</a>
+                </div>
+                <div class="filterizr">
+                    <div class="filtr">
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                        <a class="filtr-item" href="javascript:;" target="_blank" title="表盘专辑" data-category="1">
+                            <div class="overlay">
+                                <div class="bg" style="background-image:url(https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png);"></div>
+                                <div class="text">
+                                    <img class="icon" src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/53/27/c4/5327c445-5b38-fb22-59fa-6eae75164249/AppIcon-0-1x_U007emarketing-0-7-0-0-85-220.png/230x0w.png" />
+                                </div>
+                            </div>
+                            <p>表盘专辑</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="weui-loadmore weui-loadmore_line">
+                    <span class="weui-loadmore__tips">暂无数据</span>
+                </div>
+                <div class="weui-footer">
+                    <p class="weui-footer__links">
+                        <a href="javascript:" class="weui-footer__link">底部链接</a>
+                    </p>
+                    <p class="weui-footer__text">Copyright © 2008-2016 weui.io</p>
+                </div>
+            </div>
+            <div class="weui-tabbar">
+                <div class="weui-tabbar__item weui-bar__item_on" data-filter="all">
+                    <img src="/img/icon_tabbar.png" class="weui-tabbar__icon">
+                    <p class="weui-tabbar__label">全部</p>
+                </div>
+                <div class="weui-tabbar__item" data-filter="1">
+                    <img src="/img/icon_tabbar.png" class="weui-tabbar__icon">
+                    <p class="weui-tabbar__label">iosApp</p>
+                </div>
+                <div class="weui-tabbar__item" data-filter="2">
+                    <img src="/img/icon_tabbar.png" class="weui-tabbar__icon">
+                    <p class="weui-tabbar__label">minApp</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="page__bd">
+
+
+            <!-- <div class="page__container">
+                <button class="weui-btn weui-btn_primary" type="button" onclick="App.toggle()">toggle</button>
+                <ul class="nav">
+                    <li class="active" data-filter="all">全部</li>
+                    <li data-filter="1">1</li>
+                    <li data-filter="2">2</li>
+                </ul>
+                <ul class="filtr" id="filtr">
+                    <li class="filtr-item" data-category="1">
+                        <img src="/img/logo.jpg" />
+                    </li>
+                    <li class="filtr-item" data-category="1">
+                        <img src="/img/logo.jpg" />
+                    </li>
+                </ul>
+            </div> -->
         </div>
     </div>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.filterizr.js"></script>
     <script src="/js/weui.min.js"></script>
     <script>
         //wang1478
         //123456
         const App = {
             init: () => {
+                $('.filtr').filterizr();
+                weui.searchBar('#searchBar');
+                $('#searchForm').submit(function(e) {
+                    e.preventDefault();
+                });
+                $('.weui-search-bar__cancel-btn,#searchForm .weui-icon-clear').on('click', function() {
+                    $('#search').trigger('change').trigger('keyup').trigger('blur');
+                })
                 _hmt.push(['_trackEvent', "url", "onload", "init"]);
                 console.log('[init]', new Date().toLocaleString())
             },
             toggle: () => {
                 const $body = document.querySelector('body');
-                $body.setAttribute('data-weui-theme', $body.getAttribute('data-weui-theme') ? "" : "dark")
+                const $dark = $body.getAttribute('data-weui-theme') ? "" : "dark";
+                $body.setAttribute('data-weui-theme', $dark);
             }
         };
+        $(function() {
+            App.init();
+        })
     </script>
 </body>
 

@@ -7,22 +7,135 @@ body {
 body {
     max-width: 640px;
     margin: auto;
-    font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif
+    font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+    transition: all 0.5s ease-out;
+}
+
+img {
+    object-fit: cover;
+    object-position: center;
 }
 
 .page,
 body {
-    background-color: var(--weui-BG-0);
+    background-color: var(--weui-BG-2);
 }
 
 .container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
     color: var(--weui-FG-0);
+    background-color: var(--weui-BG-2);
 }
 
-.item {
-    background-color: var(--weui-BG-2);
-    display: block;
-    width: 95%;
-    margin: 1em auto;
-    padding: 2em 0;
+.page__hd {
+    /* padding: 40px; */
+}
+
+.page__title {
+    text-align: left;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.page__desc {
+    margin-top: 4px;
+    color: var(--weui-FG-1);
+    text-align: left;
+    font-size: 14px;
+}
+
+.page__bd {
+    padding: 0 16px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.filterizr {
+    padding: 15px 8px;
+}
+
+.filterizr .filtr {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.filtr-item {
+    margin: 5px 10px;
+    width: 150px;
+    cursor: pointer;
+}
+
+.filtr-item:hover,
+.filtr-item:active {
+    opacity: 0.8 !important;
+}
+
+.filtr-item p {
+    padding: 8px;
+    color: var(--weui-FG-0);
+    text-align: center;
+}
+
+.filtr-item .overlay {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin: auto;
+}
+
+.filtr-item .bg {
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-size: 110%;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -ms-filter: blur(2px);
+    -o-filter: blur(2px);
+    filter: blur(2px);
+    transition: all 0.5s ease-out;
+}
+
+.filtr-item:hover .bg,
+.filtr-item:active .bg {
+    background-size: 140%;
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -ms-filter: blur(3px);
+    -o-filter: blur(3px);
+    filter: blur(3px);
+}
+
+.filtr-item .text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.49);
+}
+
+.filtr-item .text img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
 }
