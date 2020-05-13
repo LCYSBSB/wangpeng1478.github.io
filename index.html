@@ -16,9 +16,15 @@
     <link rel="apple-touch-icon-precomposed" href="/img/logo.jpg" />
     <link rel="apple-touch-icon" href="/img/logo.jpg" />
     <link rel="apple-touch-icon-precomposed" href="/img/logo.jpg" />
-    <style>
-
-    </style>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?4c6362cd2ed0a0891a44aa5f92072acb";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 </head>
 
 <body onload="App.init()">
@@ -29,8 +35,11 @@
     </div>
     <script src="/js/weui.min.js"></script>
     <script>
+        //wang1478
+        //123456
         const App = {
             init: () => {
+                _hmt.push(['_trackEvent', "url", "onload", "init"]);
                 console.log('[init]', new Date().toLocaleString())
             },
             toggle: () => {
