@@ -1,55 +1,44 @@
 <!DOCTYPE html>
 <html lang="zh">
-    <head>
-        <meta charset="utf-8">
-        <title>admin</title>
-        <meta name="keywords" content="" />
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-        <meta name="format-detection" content="telephone=no">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.5/lib/index.css">
-        <script src="https://cdn.bootcss.com/vue/2.6.11/vue.js"></script>
-        <script src="https://cdn.bootcdn.net/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vant@2.5/lib/vant.min.js"></script>
-        <meta name="apple-touch-fullscreen" content="yes">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-        <link rel="apple-touch-icon-precomposed" href="/img/logo.jpg"/>
-        <link rel="apple-touch-icon" href="/img/logo.jpg" />
-        <link rel="apple-touch-icon-precomposed" href="/img/logo.jpg"/>
-        <style>
-            html,
-            body {
-                height: 100%;
-                background-color: #fff;
-            }
 
-            body {
-                max-width: 640px;
-                margin: auto;
-            }
-        </style>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <title>Thor资源分享</title>
+    <meta name="keywords" content="分享，thor，Thor，锤子，插件,THOR,ios资源" />
+    <meta name="description" content="Thor资源分享" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/css/weui.min.css" />
+    <link rel="stylesheet" href="/css/index.css">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon-precomposed" href="/img/logo.jpg" />
+    <link rel="apple-touch-icon" href="/img/logo.jpg" />
+    <link rel="apple-touch-icon-precomposed" href="/img/logo.jpg" />
+    <style>
 
-    <body>
-        <div id="app" style="display:none;" v-show="AppShow">
-            <h2>{{msg}}</h2>
+    </style>
+</head>
+
+<body onload="App.init()">
+    <div class="container">
+        <div class="item">
+            <button class="weui-btn weui-btn_primary" type="button" onclick="App.toggle()">toggle</button>
         </div>
-        <script>
-            new Vue({
-                el: '#app',
-                data: {
-                    AppShow: false,
-                    msg: "app"
-                },
-                mounted() {
-                    this.AppShow = true;
-                },
-                methods: {
-
-                }
-            })
-        </script>
-    </body>
+    </div>
+    <script src="/js/weui.min.js"></script>
+    <script>
+        const App = {
+            init: () => {
+                console.log('[init]', new Date().toLocaleString())
+            },
+            toggle: () => {
+                const $body = document.querySelector('body');
+                $body.setAttribute('data-weui-theme', $body.getAttribute('data-weui-theme') ? "" : "dark")
+            }
+        };
+    </script>
+</body>
 
 </html>

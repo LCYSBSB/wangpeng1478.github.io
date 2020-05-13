@@ -1,0 +1,28 @@
+html,
+body {
+    height: 100%;
+    -webkit-tap-highlight-color: transparent
+}
+
+body {
+    max-width: 640px;
+    margin: auto;
+    font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif
+}
+
+.page,
+body {
+    background-color: var(--weui-BG-0);
+}
+
+.container {
+    color: var(--weui-FG-0);
+}
+
+.item {
+    background-color: var(--weui-BG-2);
+    display: block;
+    width: 95%;
+    margin: 1em auto;
+    padding: 2em 0;
+}
