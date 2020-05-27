@@ -14,9 +14,9 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
     <script src="index.js"></script>
-    <link rel="apple-touch-icon-precomposed" href="/img/logo.jpg" />
-    <link rel="apple-touch-icon" href="/img/logo.jpg" />
-    <link rel="apple-touch-icon-precomposed" href="/img/logo.jpg" />
+    <link rel="apple-touch-icon-precomposed" href="/dp/logo.jpg" />
+    <link rel="apple-touch-icon" href="/dp/logo.jpg" />
+    <link rel="apple-touch-icon-precomposed" href="/dp/logo.jpg" />
     <script>
         var _hmt = _hmt || [];
         (function() {
@@ -29,11 +29,6 @@
 </head>
 
 <body id="t" class="offline">
-    <div id="messageBox" class="sendmessage">
-        <h1 style="text-align: center;font-family: 'Open Sans', sans-serif;">Press Space to start</h1>
-        <div class="niokbutton" onclick="okbuttonsend()"></div>
-
-    </div>
     <div id="main-frame-error" class="interstitial-wrapper">
         <div id="main-content">
             <div class="icon icon-offline" alt=""></div>
@@ -48,19 +43,43 @@
             </template>
         </div>
     </div>
-</body>
-<script>
-    document.onkeydown = function(evt) {
-        evt = evt || window.event;
-        if (evt.keyCode == 32) {
-            var box = document.getElementById("messageBox");
-            box.style.visibility = "hidden";
-        }
-    };
+    <div style="max-width:500px;margin:1em auto">
+        <div id="dplayer"></div>
+        <br />
+        <button onclick="dp.play()">播放视频</button>
+        <button onclick="dp.pause()">暂停视频</button>
+        <button onclick="dp.seek(10)">跳转到10</button>
+        <button onclick="dp.toggle()">切换播放和暂停</button>
+        <button onclick="dp.switchVideo({url: '/dp/v2.mp4',pic: '/dp/pic2.jpg',thumbnails: '/dp/pic2.jpg',}),dp.play()">切换</button>
+        <button onclick="dp.notice(new Date().toLocaleString(),2000)">通知</button>
+        <button onclick="dp.destroy()">销毁</button>
+    </div>
 
-    // Runner.instance_.setSpeed(99999);
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/dplayer/1.25.1/DPlayer.min.js"></script>
+<script>
+    const dp = new DPlayer({
+        container: document.getElementById('dplayer'),
+        autoplay: false, //视频自动播放
+        theme: '#b7daff', //主题色
+        loop: false, //视频循环播放
+        screenshot: true, // 截图
+        hotkey: true, //开启热键，支持快进、快退、音量控制、播放暂停
+        airplay: true, //在 Safari 中开启 AirPlay
+        preload: 'none', //视频预加载，可选值: 'none', 'metadata', 'auto'
+        volume: 0.7, //默认音量，请注意播放器会记忆用户设置，用户手动设置音量后默认音量即失效
+        logo: "/dp/logo.jpg",
+        video: {
+            pic: '/dp/pic1.jpg',
+            pithumbnailsc: '/dp/pic1.jpg',
+            url: '/dp/v1.mp4',
+        },
+    });
+</script>
+<script>
+    // Runner.instance_.setSpeed(99999); 试试 瞬间 满分
     // window.tempGameOver = Runner.instance_.gameOver;
-    // Runner.instance_.gameOver = function(){}
+    // Runner.instance_.gameOver = function(){}// 不会死亡
     // https://www.sohu.com/a/316117007_655780
 </script>
 
