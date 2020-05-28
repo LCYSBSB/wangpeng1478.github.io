@@ -26,6 +26,11 @@
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
+    <style>
+        button {
+            margin: 3px;
+        }
+    </style>
 </head>
 
 <body id="t" class="offline">
@@ -50,11 +55,11 @@
         <button onclick="dp.pause()">暂停视频</button>
         <button onclick="dp.seek(10)">跳转到10</button>
         <button onclick="dp.toggle()">切换播放和暂停</button>
-        <button onclick="dp.switchVideo({url: '/dp/v2.mp4',pic: '/dp/pic2.jpg',thumbnails: '/dp/pic2.jpg',}),dp.play()">切换</button>
+        <button onclick="dp.switchVideo({url: '/dp/v2.mp4',pic: '/dp/pic2.jpg',thumbnails: '/dp/pic2.jpg',}),dp.play()">切换1</button>
+        <button onclick="dp.switchVideo({url: 'https:\/\/api.dogecloud.com/player/get.mp4?vcode=5ac682e6f8231991&userId=17&ext=.mp4',pic: 'https:\/\/i.loli.net/2019/06/06/5cf8c5d9c57b510947.png',thumbnails: 'https:\/\/i.loli.net/2019/06/06/5cf8c5d9c57b510947.png',}),dp.play()">切换2</button>
         <button onclick="dp.notice(new Date().toLocaleString(),2000)">通知</button>
         <button onclick="dp.destroy()">销毁</button>
     </div>
-
 </body>
 <script src="https://cdn.bootcdn.net/ajax/libs/dplayer/1.25.1/DPlayer.min.js"></script>
 <script>
