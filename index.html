@@ -60,7 +60,16 @@
         <button onclick="dp.notice(new Date().toLocaleString(),2000)">通知</button>
         <button onclick="dp.destroy()">销毁</button>
     </div>
+    <div style="max-width:500px;margin:1em auto">
+        <div id="livedplayer"></div>
+        <br />
+        <form action="" method="get" onsubmit="livePlay(this)">
+            <input type="url" id="url" value="" required />
+            <input type="submit" />
+        </form>
+    </div>
 </body>
+<script src="https://cdn.bootcdn.net/ajax/libs/hls.js/8.0.0-beta.3/hls.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/dplayer/1.25.1/DPlayer.min.js"></script>
 <script>
     const dp = new DPlayer({
@@ -73,13 +82,65 @@
         airplay: true, //在 Safari 中开启 AirPlay
         preload: 'none', //视频预加载，可选值: 'none', 'metadata', 'auto'
         volume: 0.7, //默认音量，请注意播放器会记忆用户设置，用户手动设置音量后默认音量即失效
-        logo: "/dp/logo.jpg",
+        logo: "logo.webp",
+        contextmenu: [{
+            text: '链接',
+            link: 'http://wangpeng1478.github.io',
+        }, {
+            text: '点击',
+            click: (player) => {
+                alert(new Date().toLocaleString())
+                console.log(player);
+            }
+        }],
         video: {
             pic: '/dp/pic1.jpg',
             pithumbnailsc: '/dp/pic1.jpg',
             url: '/dp/v1.mp4',
         },
     });
+
+    function livePlay(e) {
+        var url = document.getElementById('url').value;
+        if (!url) {
+            alert('请输入')
+            return;
+        }
+        console.log(url)
+        const livedp = new DPlayer({
+            container: document.getElementById('livedplayer'),
+            live: true,
+            autoplay: true, //视频自动播放
+            theme: '#b7daff', //主题色
+            loop: false, //视频循环播放
+            screenshot: true, // 截图
+            hotkey: true, //开启热键，支持快进、快退、音量控制、播放暂停
+            airplay: true, //在 Safari 中开启 AirPlay
+            preload: 'none', //视频预加载，可选值: 'none', 'metadata', 'auto'
+            volume: 0.7, //默认音量，请注意播放器会记忆用户设置，用户手动设置音量后默认音量即失效
+            logo: "logo.webp",
+            contextmenu: [{
+                text: '链接',
+                link: 'http://wangpeng1478.github.io',
+            }, {
+                text: '点击',
+                click: (player) => {
+                    alert(new Date().toLocaleString())
+                    console.log(player);
+                }
+            }],
+            video: {
+                url,
+                type: 'hls',
+            },
+        });
+        if (e && e.preventDefault) {
+            e.preventDefault();
+        } else {
+            window.event.returnValue = false;
+        }
+        return false;
+    }
 </script>
 <script>
     // Runner.instance_.setSpeed(99999); 试试 瞬间 满分
