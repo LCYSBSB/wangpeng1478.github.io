@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <title>game</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .game {
+            max-width: 500px;
+            margin: auto;
+        }
+        
+        canvas {
+            margin-top: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game" class="game">
+        <canvas ref="canvas"></canvas>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#game',
+        data: {
+            canvas: null,
+            canvasCtx: null,
+            spriteDefinition: {
+                CACTUS_LARGE: {
+                    x: 652,
+                    y: 2
+                },
+                CACTUS_SMALL: {
+                    x: 446,
+                    y: 2
+                },
+                CLOUD: {
+                    x: 166,
+                    y: 2
+                },
+                HORIZON: {
+                    x: 2,
+                    y: 104
+                },
+                MOON: {
+                    x: 954,
+                    y: 2
+                },
+                PTERODACTYL: {
+                    x: 260,
+                    y: 2
+                },
+                RESTART: {
+                    x: 2,
+                    y: 2
+                },
+                TEXT_SPRITE: {
+                    x: 1294,
+                    y: 2
+                },
+                TREX: {
+                    x: 1678,
+                    y: 2
+                },
+                STAR: {
+                    x: 1276,
+                    y: 2
+                }
+            }
+        },
+        created: function() {
+
+        },
+        mounted: function() {
+            this.gameInit();
+            this.drawImageCanvas({
+                src:'./assets/default_200_percent/200-offline-sprite.png',
+                width:10,
+                height:10,
+            })
+        },
+        methods: {
+            gameInit() {
+                this.canvas = this.$refs.canvas;
+                this.canvasCtx = this.canvas.getContext("2d");
+                this.canvas.width = this.$el.offsetWidth;
+                this.canvas.height = this.canvas.width / 2;
+                this.canvasCtx.fillStyle = '#eee';
+                this.canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                console.log(this.canvasCtx);
+            },
+            
+            drawImageCanvas(event) {
+                const img = new Image();
+                img.onload = (e) => {
+                    this.canvasCtx.drawImage(img, event.width, event.height);
+                }
+                img.src = event.src;
+            },
+        }
+    })
+</script>
+
+</html>
