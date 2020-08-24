@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <title>双色球</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="" type="image/x-icon" />
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style>
+        body {
+            background-color: #eee;
+        }
+        
+         ::-webkit-scrollbar {
+            width: 8px;
+            height: 1px
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            background: #d6d6d6
+        }
+        
+         ::-webkit-scrollbar-track {
+            background: #EDEDED
+        }
+        
+        .container {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+            max-width: 600px;
+        }
+        
+        .box-card:nth-child(1) {
+            margin-top: 15px;
+        }
+        
+        .box-card:not(:last-child) {
+            margin-bottom: 15px;
+        }
+        
+        .cellList>span {
+            margin: 0 1em 0 0;
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            background-color: #f2001d;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 13px;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+        
+        .cellList>span:last-child {
+            background-color: #0758e6;
+        }
+        
+        .scroll {
+            overflow: hidden scroll;
+            height: 300px;
+            margin-top: 2em;
+        }
+        
+        .cells {
+            border-bottom: 1px solid #eee;
+            padding: 1em 0;
+            position: relative;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        
+        .cells .cellList {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 1em;
+        }
+        
+        .frequency {
+            width: 5em;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
+        .result span {
+            margin: 0 5px;
+            font-size: 12px;
+        }
+        
+        @media (max-width: 560px) {
+            html,
+            body {
+                padding: 0;
+            }
+            .cellList>span {
+                font-size: 12px;
+                width: 25px;
+                height: 25px;
+                line-height: 25px;
+                margin: 0 5px 0 0;
+            }
+            .container {
+                padding: 0;
+            }
+            .box-card:not(:last-child) {
+                margin-bottom: 8px;
+            }
+            .box-card:nth-child(1) {
+                margin-top: 8px;
+            }
+            .cells {
+                flex-wrap: wrap;
+            }
+            .cells .cellList {
+                margin: 0 5px;
+            }
+            .scroll {
+                margin-top: 10px;
+            }
+            .frequency {
+                font-size: 12px;
+            }
+            .el-card__body {
+                padding: 10px;
+            }
+            button {
+                margin: 2px 5px 2px 0 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="container" :style="{opacity:loadShow?1:0}" style="opacity:0;">
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <span>中奖号码</span>
+                <el-button style="float: right; padding: 3px 0" @click="changePrize" type="text">随机一组</el-button>
+            </div>
+            <div class="cellList">
+                <span v-for="(item,index) in prizeNumber" :key="index" @click="changeNumber(index)" v-text="prefixInteger(item,1)"></span>
+            </div>
+        </el-card>
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <span>购买</span>
+            </div>
+            <!-- <el-form :inline="true" size="small">
+                <el-form-item label="数量">
+                    <el-input-number v-model="num" controls-position="right" :min="1" :max="100000"></el-input-number>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="buy">购买</el-button>
+                </el-form-item>
+            </el-form> -->
+            <el-row>
+                <el-button type="primary" :disabled="timing!=null" @click="buy(10)" size="mini">随机10注</el-button>
+                <el-button type="warning" :disabled="timing!=null" @click="buy(100)" size="mini">随机100注</el-button>
+                <el-button type="danger" :disabled="timing!=null" @click="buy(1000)" size="mini">随机1000注</el-button>
+                <el-button type="primary" :disabled="timing!=null" @click="filling" icon="el-icon-edit" size="mini"></el-button>
+                <el-button type="primary" :disabled="timing!=null" @click="Start" size="mini">开始</el-button>
+                <el-button type="primary" :disabled="timing===null" @click="Stop" size="mini">暂停</el-button>
+            </el-row>
+
+            <div class="scroll" ref="scroll">
+                <div class="cells" v-for="(rec,j) in recording" :key="j">
+                    <div class="frequency">第{{j+1}}次</div>
+                    <div class="cellList">
+                        <span v-for="(item,index) in rec.prizeNumber" :key="index" v-text="prefixInteger(item,1)"></span>
+                    </div>
+                    <div class="result">
+                        <span style="color:red;" v-if="rec.prizeLevel>0">{{rec.prizeName}}</span>
+                        <span style="color:#d4d4d4;" v-else>{{rec.prizeName}}</span>
+                    </div>
+                </div>
+            </div>
+        </el-card>
+        <el-card class="box-card">
+            <el-tabs v-model="activeName">
+                <el-tab-pane label="中奖统计" name="0">
+                    <el-alert v-if="chartData.length>0" :title="`总投入`" type="info" :closable="false" :description="`${recording.length}×2（元）=${recording.length*2}元`">
+                    </el-alert>
+                    <el-table :data="chartData">
+                        <el-table-column width="80" fixed property="type" label="中奖名称"></el-table-column>
+                        <el-table-column width="100" label="中奖数量">
+                            <template slot-scope="scope">
+                                <el-tag v-if="scope.row.value>0" size="medium">{{ scope.row.value }}</el-tag>
+                                <el-tag v-else size="danger">{{ scope.row.value }}</el-tag>
+                            </template>
+                        </el-table-column>
+                        <el-table-column width="100" label="中奖率">
+                            <template slot-scope="scope">
+                                <el-tag size="medium">{{ scope.row.probability }}</el-tag>
+                            </template>
+                        </el-table-column>
+                        <el-table-column :show-overflow-tooltip="true" property="prize" label="奖金分配"></el-table-column>
+                    </el-table>
+                    <el-alert v-if="chartData.length>0" :title="`净利润`" type="info" :closable="false" :description="profit()">
+                    </el-alert>
+                    <p v-if="chartData.length>0" style="color: red;font-size: 12px;padding: 1em;">
+                        一等奖：5000000<br /> 二等奖：200000
+                        <br /> 最终结果经参考
+                    </p>
+                </el-tab-pane>
+            </el-tabs>
+        </el-card>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://gw.alipayobjects.com/os/lib/antv/g2/4.0.14/dist/g2.min.js"></script>
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.11.1/dist/data-set.js"></script>
+    <script src="https://unpkg.com/element-ui"></script>
+    <script>
+        //数组功能扩展
+        //数组迭代函数
+        Array.prototype.each = function(fn) {
+            fn = fn || Function.K;
+            var a = [];
+            var args = Array.prototype.slice.call(arguments, 1);
+            for (var i = 0; i < this.length; i++) {
+                var res = fn.apply(this, [this[i], i].concat(args));
+                if (res != null) a.push(res);
+            }
+            return a;
+        };
+        //数组是否包含指定元素
+        Array.prototype.contains = function(suArr) {
+                for (var i = 0; i < this.length; i++) {
+                    if (this[i] == suArr) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            //不重复元素构成的数组
+        Array.prototype.uniquelize = function() {
+            var ra = new Array();
+            for (var i = 0; i < this.length; i++) {
+                if (!ra.contains(this[i])) {
+                    ra.push(this[i]);
+                }
+            }
+            return ra;
+        };
+        //两个数组的交集
+        Array.intersect = function(a, b) {
+            return a.uniquelize().each(function(o) {
+                return b.contains(o) ? o : null
+            });
+        };
+
+        new Vue({
+            el: '#app',
+            data: {
+                loadShow: false,
+                timing: null,
+                num: 1,
+                activeName: '0',
+                prizeNumber: [],
+                recording: [],
+                chartData: [],
+            },
+            mounted() {
+                this.changePrize();
+                this.loadShow = true;
+            },
+            methods: {
+                sum(m, n) {
+                    return Math.floor(Math.random() * (m - n) + n)
+                },
+                prefixInteger(num) {
+                    return num.toString().padStart(2, '0')
+                },
+                changePrize() {
+                    this.prizeNumber = this.generate();
+                    this.recording = [];
+                    this.chartData = [];
+                    this.Stop();
+                },
+                changeNumber(index) {
+                    var inputValue = this.prizeNumber[index];
+                    var isBlue = this.prizeNumber.length - 1 === index;
+                    var inputPattern = null;
+                    var title = '请输入号码';
+                    if (isBlue) {
+                        title = '请输入号码(1-16)';
+                    } else {
+                        title = '请输入号码(1-33)';
+                    }
+                    var promptNumber = prompt(title, inputValue);
+                    if (promptNumber) {
+                        var N = Math.floor(Number(promptNumber));
+                        if (isNaN(N)) {
+                            this.$message('请输入数字');
+                            return;
+                        }
+                        if (isBlue) {
+                            if (N >= 1 && N <= 16) {
+                                this.prizeNumber[index] = N;
+                                this.recording = [];
+                                this.chartData = [];
+                            } else {
+                                this.$message('请输入1-16位号码')
+                            }
+                        } else {
+                            if (N >= 1 && N <= 33) {
+                                this.prizeNumber[index] = N;
+                                this.recording = [];
+                                this.chartData = [];
+                            } else {
+                                this.$message('请输入1-33位号码')
+                            }
+                        }
+                    }
+
+                },
+                generate() {
+                    var prizeNumber = [];
+                    //6 red
+                    for (let index = 0; index < 6; index++) {
+                        prizeNumber.push(this.sum(1, 33))
+                    }
+                    prizeNumber = prizeNumber.sort((a, b) => a - b)
+                        //1 blue
+                    prizeNumber.push(this.sum(1, 16))
+                    return prizeNumber
+                },
+                isWinning(arr1, arr2) {
+                    var msg = new Object;
+                    var redNum1 = [arr1[0], arr1[1], arr1[2], arr1[3], arr1[4], arr1[5]];
+                    var redNum2 = arr1[6];
+                    var blueNum1 = [arr2[0], arr2[1], arr2[2], arr2[3], arr2[4], arr2[5]];
+                    var blueNum2 = arr2[6];
+                    const mixed = Array.intersect(redNum1, blueNum1);
+                    if (mixed.length == 6 && redNum2 === blueNum2) {
+                        msg.prizeName = '一等奖';
+                        msg.prizeLevel = 1;
+                    } else if (mixed.length == 6) {
+                        msg.prizeName = '二等奖';
+                        msg.prizeLevel = 2;
+                    } else if (mixed.length == 5 && redNum2 === blueNum2) {
+                        msg.prizeName = '三等奖';
+                        msg.prizeLevel = 3;
+                    } else if (mixed.length == 5 || (mixed.length == 4 && redNum2 === blueNum2)) {
+                        msg.prizeName = '四等奖';
+                        msg.prizeLevel = 4;
+                    } else if (mixed.length == 4 || (mixed.length == 3 && redNum2 === blueNum2)) {
+                        msg.prizeName = '五等奖';
+                        msg.prizeLevel = 5;
+                    } else if ((redNum2 === blueNum2) || ((mixed.length == 1 || mixed.length == 2) && redNum2 === blueNum2)) {
+                        msg.prizeName = '六等奖';
+                        msg.prizeLevel = 6;
+                    } else {
+                        msg.prizeName = '未中奖';
+                        msg.prizeLevel = 0;
+                    }
+                    return msg
+                },
+                filling() {
+                    var promptNumber = prompt("请填写数量");
+                    if (promptNumber) {
+                        var N = Math.floor(Number(promptNumber));
+                        if (isNaN(N)) {
+                            this.$message('请输入数字');
+                            return;
+                        }
+                        this.buy(N);
+                    }
+                },
+                buy(n) {
+                    console.time(`用时`);
+                    this.recording = [];
+                    var num = this.num;
+                    if (n) {
+                        num = n;
+                    }
+                    var arr1 = this.prizeNumber;
+                    for (let index = 0; index < num; index++) {
+                        var arr2 = this.generate();
+                        var prize = this.isWinning(arr1, arr2);
+                        this.recording.push({
+                            prizeNumber: arr2,
+                            prizeName: prize.prizeName,
+                            prizeLevel: prize.prizeLevel,
+                        })
+                    }
+                    console.timeEnd(`用时`);
+                    this.tableInit();
+                    this.$nextTick(() => {
+                        this.$refs.scroll.scrollTo(0, 0);
+                    })
+                },
+                Start() {
+                    if (this.timing) {
+                        this.Stop();
+                    } else {
+                        this.timing = setInterval(() => {
+                            var arr1 = this.prizeNumber;
+                            var arr2 = this.generate();
+                            var prize = this.isWinning(arr1, arr2);
+                            this.recording.push({
+                                prizeNumber: arr2,
+                                prizeName: prize.prizeName,
+                                prizeLevel: prize.prizeLevel,
+                            })
+                            this.tableInit();
+                            this.$nextTick(() => {
+                                const $dow = this.$refs.scroll;
+                                $dow.scrollTo({
+                                    top: $dow.scrollHeight,
+                                    behavior: "smooth"
+                                });
+                            })
+                        }, 1000)
+                    }
+
+                },
+                Stop() {
+                    if (this.timing) {
+                        clearInterval(this.timing)
+                        this.timing = null;
+                    }
+                },
+                getPrizeNum(level) {
+                    var n = 0;
+                    var recording = this.recording || [];
+                    recording.forEach(e => {
+                        if (e.prizeLevel == level) {
+                            n++;
+                        }
+                    })
+                    return n
+                },
+                probability(level) {
+                    var n = 0;
+                    var recording = this.recording || [];
+                    recording.forEach(e => {
+                        if (e.prizeLevel == level) {
+                            n++;
+                        }
+                    })
+                    return (Math.round(n / recording.length * 10000) / 100.00 + "%")
+                },
+                profit() {
+
+                    var t = '';
+                    var a = 0;
+                    var chartData = this.chartData || [];
+                    for (let index = 0; index < chartData.length; index++) {
+                        const element = chartData[index];
+                        a += element.value * element.bonus
+                        if (chartData.length === index + 1) {
+                            t += `(${element.value}*${element.bonus}) = `;
+                        } else {
+                            t += `(${element.value}*${element.bonus}) + `;
+                        }
+                    }
+                    t += a - (this.recording.length * 2) + '元'
+                    return t
+                },
+                tableInit() {
+                    var data = [{
+                        type: '一等奖',
+                        bonus: 5000000,
+                        value: this.getPrizeNum(1),
+                        probability: this.probability(1),
+                        prize: `当奖池资金低于1亿元时，一等奖奖金总额为当期高奖级奖金的75%与奖池中累积的资金之和，单注奖金按注均分，单注最高限额封顶500万元。当奖池资金高于1亿元（含）时，一等奖奖金总额包括两部分，一部分为当期高奖级奖金的55%与奖池中累积的资金之和，单注奖金按注均分，单注最高限额封顶500万元；另一部分为当期高奖级奖金的20%，单注奖金按注均分，单注最高限额封顶500万元。`,
+                    }, {
+                        type: '二等奖',
+                        bonus: 200000,
+                        value: this.getPrizeNum(2),
+                        probability: this.probability(2),
+                        prize: `二等奖奖金总额为当期高奖级奖金的25%，单注奖金按注均分，单注最高限额封顶500万元。`,
+                    }, {
+                        type: '三等奖',
+                        bonus: 3000,
+                        value: this.getPrizeNum(3),
+                        probability: this.probability(3),
+                        prize: `单注奖金额固定为3000元`,
+                    }, {
+                        type: '四等奖',
+                        bonus: 200,
+                        value: this.getPrizeNum(4),
+                        probability: this.probability(4),
+                        prize: `单注奖金额固定为200元`,
+                    }, {
+                        type: '五等奖',
+                        bonus: 10,
+                        value: this.getPrizeNum(5),
+                        probability: this.probability(5),
+                        prize: `单注奖金额固定为10元`,
+                    }, {
+                        type: '六等奖',
+                        bonus: 5,
+                        value: this.getPrizeNum(6),
+                        probability: this.probability(6),
+                        prize: `单注奖金额固定为5元`,
+                    }];
+                    this.chartData = data;
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>
