@@ -406,6 +406,8 @@
                     if (this.timing) {
                         this.Stop();
                     } else {
+                        this.recording = [];
+                         this.chartData = [];
                         this.timing = setInterval(() => {
                             var arr1 = this.prizeNumber;
                             var arr2 = this.generate();
